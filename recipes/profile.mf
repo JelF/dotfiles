@@ -3,7 +3,7 @@ profile: profile/result/.bashrc profile/result/.bash_profile profile/result/.pro
 profile/result/:
 	mkdir -p profile/result
 
-DEPS=recipes/build-profile.rb profile/src/* profile/result/
+DEPS=recipes/build-profile.rb profile/src/**/* profile/result/
 
 profile/result/.bashrc: $(DEPS)
 	recipes/build-profile.rb bash -login > $@
@@ -15,4 +15,4 @@ profile/result/.profile: $(DEPS)
 	recipes/build-profile.rb bash login zsh > $@
 
 profile/result/.zshrc: $(DEPS)
-	recipes/build-profile.rb zsh -bash > $@
+	recipes/build-profile.rb zsh > $@
