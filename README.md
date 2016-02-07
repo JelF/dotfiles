@@ -4,7 +4,7 @@
 3. 'profile/result' contains files .bashrc, .zshrc, .bash_profile, .profile
 and other related scripts
 # Usage
-$ make check
+$ make prereq
 $ make
 $ make install
 $ make uninstall
