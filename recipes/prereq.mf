@@ -1,0 +1,23 @@
+.PHONY: prereq rbenv ruby git
+
+RBENV_SCRIPT=$(PWD)/recipes/checkinstall/rbenv.sh
+rbenv: $(shell $(RBENV_SCRIPT) marker)
+$(shell $(RBENV_SCRIPT) marker): $(shell $(RBENV_SCRIPT) deps) bash versions/rbenv
+	$(BASH) $(RBENV_SCRIPT) install
+	echo "source $(RBENV) post_install" >> .make_env
+
+RUBY=$(shell $(RUBY_SCRIPT) marker)
+RUBY_SCRIPT=$(PWD)/recipes/checkinstall/ruby.sh
+ruby: $(shell $(RUBY_SCRIPT) marker)
+$(shell $(RUBY_SCRIPT) marker): $(shell $(RUBY_SCRIPT) deps) bash versions/ruby
+	$(BASH) $(RUBY_SCRIPT) install
+	echo "source $(RUBY_SCRIPT) post_install" >> .make_env
+
+
+GIT_SCRIPT=$(PWD)/recipes/checkinstall/git.sh
+git: $(shell $(GIT_SCRIPT) marker)
+$(shell $(GIT_SCRIPT) marker): $(shell $(GIT_SCRIPT) deps) bash versions/git
+	$(BASH) $(GIT_SCRIPT) install
+	echo "source $(GIT_SCRIPT) post_install" >> .make_env
+
+prereq: ruby git

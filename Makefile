@@ -1,17 +1,31 @@
-include recipes/profile.mf
 PWD=$(shell pwd)
+BASH=$(shell which env) BASH_ENV=$(PWD)/.make_env bash
 
-.PHONY: install uninstall profile default
-default: profile
+include recipes/profile.mf
+include recipes/prereq.mf
 
-install: default
-	recipes/insert-to-file.sh 'source $(PWD)/profile/result/.bashrc' $(HOME)/.bashrc
-	recipes/insert-to-file.sh 'source $(PWD)/profile/result/.bash_profile' $(HOME)/.bash_profile
-	recipes/insert-to-file.sh 'source $(PWD)/profile/result/.profile' $(HOME)/.profile
-	recipes/insert-to-file.sh 'source $(PWD)/profile/result/.zshrc' $(HOME)/.zshrc
+.PHONY: install uninstall profile default always bash virtual
+default: profile prereq
+
+always:
+
+install: default bash
+	$(BASH) recipes/insert-to-file.sh 'source $(PWD)/profile/result/.bashrc' $(HOME)/.bashrc
+	$(BASH) recipes/insert-to-file.sh 'source $(PWD)/profile/result/.bash_profile' $(HOME)/.bash_profile
+	$(BASH) recipes/insert-to-file.sh 'source $(PWD)/profile/result/.profile' $(HOME)/.profile
+	$(BASH) recipes/insert-to-file.sh 'source $(PWD)/profile/result/.zshrc' $(HOME)/.zshrc
 
 uninstall:
 	sed -i '\#source $(PWD)/profile/result/.bashrc#d' $(HOME)/.bashrc
 	sed -i '\#source $(PWD)/profile/result/.bash_profile#d' $(HOME)/.bash_profile
 	sed -i '\#source $(PWD)/profile/result/.profile#d' $(HOME)/.profile
 	sed -i '\#source $(PWD)/profile/result/.zshrc#d' $(HOME)/.zshrc
+
+bash:
+	rm .make_env || true
+	echo "source ${HOME}/.bashrc" >> .make_env
+	echo "export MAKE_ROOT=$(PWD)" >> .make_env
+
+virtual:
+	rm -Rvf virtual || true
+	mkdir virtual
