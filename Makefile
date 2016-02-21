@@ -1,6 +1,7 @@
 include recipes/profile.mf
 PWD=$(shell pwd)
 
+.PHONY: install uninstall profile default
 default: profile
 
 install: default
