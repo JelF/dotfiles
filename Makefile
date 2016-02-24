@@ -25,7 +25,3 @@ bash:
 	rm .make_env || true
 	echo "source ${HOME}/.bashrc" >> .make_env
 	echo "export MAKE_ROOT=$(PWD)" >> .make_env
-
-virtual:
-	rm -Rvf virtual || true
-	mkdir virtual
