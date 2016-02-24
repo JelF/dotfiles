@@ -1,0 +1,4 @@
+source /home/jelf/.bashrc
+export MAKE_ROOT=/home/jelf/.dotfiles
+source  post_install
+source /home/jelf/.dotfiles/recipes/checkinstall/ruby.sh post_install
