@@ -4,10 +4,9 @@ BASH=$(shell which env) BASH_ENV=$(PWD)/.make_env bash
 include recipes/profile.mf
 include recipes/prereq.mf
 
-.PHONY: install uninstall profile default always bash virtual
+.PHONY: install uninstall profile default bash virtual
 default: profile prereq
 
-always:
 
 install: default bash
 	$(BASH) recipes/insert-to-file.sh 'source $(PWD)/profile/result/.bashrc' $(HOME)/.bashrc
