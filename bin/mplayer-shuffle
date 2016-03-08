@@ -1,0 +1,11 @@
+#/bin/bash
+
+if [ -z $1 ]; then
+  SIZE=20
+else
+  SIZE=$1
+fi
+
+
+find -L ~/music/ -type f | shuf | head -n $SIZE >/tmp/playlist.m3u &&
+  mplayer -playlist /tmp/playlist.m3u
